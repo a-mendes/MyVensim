@@ -1,42 +1,39 @@
 # Windows Makefile
 
-funcional: funcional_main.o funcional_tests.o 
-	@g++ ./bin/test/funcional/funcional_tests.o ./bin/test/funcional/main.o -o funcional.exe
-	@./funcional.exe
-
-unit:  unit_main.o unit_tests.o 
-	@g++ ./bin/test/unit/main.o ./bin/test/unit/unit_tests.o -o unit.exe
-	@./unit.exe
-
-
-all: main.o mySim.o 
-	@g++ ./bin/src/main.o ./bin/src/mySim.o ./bin/test/unit/main.o ./bin/test/unit/unit_tests.o -o api.exe
+funcional: system.o flow.o model.o main.o flowLogistic.o flowComplex.o flowExponential.o funcionalTests.o
+	@g++ ./bin/src/flow.o ./bin/src/system.o ./bin/src/model.o ./bin/test/funcional/main.o ./bin/test/funcional/flowLogistic.o ./bin/test/funcional/flowComplex.o ./bin/test/funcional/flowExponential.o ./bin/test/funcional/funcionalTests.o -o funcional.exe
 
 # Source
-main.o: ./src/main.cpp
-	@g++ -c ./src/main.cpp -o ./bin/src/main.o
+flow.o: ./src/flow.cpp
+	@g++ -c ./src/flow.cpp -o ./bin/src/flow.o
 
-mySim.o: ./src/mySim.cpp
-	@g++ -c ./src/mySim.cpp -o ./bin/src/mySim.o
+system.o: ./src/system.cpp
+	@g++ -c ./src/system.cpp -o ./bin/src/system.o	
 
+model.o: ./src/model.cpp
+	@g++ -c ./src/model.cpp -o ./bin/src/model.o
 
 # Funcional Test
-funcional_main.o: ./test/funcional/main.cpp
-	@g++ -c ./test/funcional/main.cpp -o ./test/funcional/main.o
+main.o: ./test/funcional/main.cpp
+	@g++ -c ./test/funcional/main.cpp -o ./bin/test/funcional/main.o
 
-funcional_tests.o: ./test/funcional/funcional_tests.cpp
-	@g++ -c ./test/funcional/funcional_tests.cpp -o ./bin/test/funcional/funcional_tests.o
+flowLogistic.o: ./test/funcional/flowLogistic.cpp
+	@g++ -c ./test/funcional/flowLogistic.cpp -o ./bin/test/funcional/flowLogistic.o
 
+flowExponential.o: ./test/funcional/flowExponential.cpp
+	@g++ -c ./test/funcional/flowExponential.cpp -o ./bin/test/funcional/flowExponential.o
 
-# Unit Test
-unit_main.o: ./test/unit/main.cpp
-	@g++ -c ./test/unit/main.cpp -o ./bin/test/unit/main.o
+flowComplex.o: ./test/funcional/flowComplex.cpp
+	@g++ -c ./test/funcional/flowComplex.cpp -o ./bin/test/funcional/flowComplex.o
 
-unit_tests.o: ./test/unit/unit_tests.cpp
-	@g++ -c ./test/unit/unit_tests.cpp -o ./bin/test/unit/unit_tests.o
+funcionalTests.o: ./test/funcional/funcionalTests.cpp
+	@g++ -c ./test/funcional/funcionalTests.cpp -o ./bin/test/funcional/funcionalTests.o
+
+all:
+	@make funcional
 
 run:
-	@./api.exe
+	@./funcional.exe
 
 go:
 	@cls
