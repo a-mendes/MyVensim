@@ -49,3 +49,11 @@ string Flow::getName(){
 void Flow::setName(string name){
     this->name = name;
 }
+
+double Flow::getValue(){
+    return this->value;
+}
+
+void Flow::setValue(double value){
+    this->value = value;
+}

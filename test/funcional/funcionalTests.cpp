@@ -100,12 +100,6 @@ void complexFuncionalTest(){
 
     model->run(0, 100, 1);
 
-    cout << "q1: " << q1->getValue() << endl;
-    cout << "q2: " << q2->getValue() << endl;
-    cout << "q3: " << q3->getValue() << endl;
-    cout << "q4: " << q4->getValue() << endl;
-    cout << "q5: " << q5->getValue() << endl;
-
     assert(fabs(q1->getValue() - 31.8513) < 0.0001);
     assert(fabs(q2->getValue() - 18.4003) < 0.0001);
     assert(fabs(q3->getValue() - 77.1143) < 0.0001);

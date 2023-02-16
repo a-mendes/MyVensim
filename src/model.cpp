@@ -10,21 +10,24 @@ Model::~Model(){}
 
 void Model::run(int initialTime, int finalTime, int timeStep){
     for(int i = initialTime; i < finalTime; i += timeStep){
-        
-        for(int k = 0; k < vectorFlow.size(); k++){
-            double value = vectorFlow[k]->equation();
 
-            System* origin = vectorFlow[k]->getOriginSystem();
-            origin->setValue(origin->getValue() - value);
+        for(int j = 0; j < vectorFlow.size(); j++){
+            double value = vectorFlow[j]->equation();
+            vectorFlow[j]->setValue(value);
+        }
 
-            System* destiny = vectorFlow[k]->getDestinySystem();
-            destiny->setValue(destiny->getValue() + value);
+        for(int j = 0; j < vectorFlow.size(); j++){
+            System* origin = vectorFlow[j]->getOriginSystem();
+            origin->setValue(origin->getValue() - vectorFlow[j]->getValue());
+
+            System* destiny = vectorFlow[j]->getDestinySystem();
+            destiny->setValue(destiny->getValue() + vectorFlow[j]->getValue());
         }
     }
 }
 
 void Model::run(int finalTime){
-    run(this->initialTime, finalTime, this->timeStep);
+    run(initialTime, finalTime, timeStep);
 }
 
 void Model::add(System* system){
@@ -82,13 +85,13 @@ Model& Model::operator=(const Model& cp){
 
     for(vector<System*>::const_iterator it = cp.vectorSystem.begin(); it != cp.vectorSystem.end(); it++){
         sysAux = (*it);
-        this->add(sysAux);
+        add(sysAux);
     }
 
     Flow* flowAux;
     for(vector<Flow*>::const_iterator it = cp.vectorFlow.begin(); it != cp.vectorFlow.end(); it++){
         flowAux = (*it);
-        this->add(flowAux);
+        add(flowAux);
     }
     
     initialTime = cp.initialTime;

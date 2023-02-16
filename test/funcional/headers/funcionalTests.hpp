@@ -10,8 +10,22 @@
 #include <iostream>
 #include <math.h>
 
+/**
+ * @brief Funcional Test for exponential simulation
+ * 
+ */
 void exponentialFuncionalTest();
+
+/**
+ * @brief Funcional Test for logistical simulation
+ * 
+ */
 void logisticalFuncionalTest();
+
+/**
+ * @brief Funcional Test for complex simulation
+ * 
+ */
 void complexFuncionalTest();
 
 #endif
